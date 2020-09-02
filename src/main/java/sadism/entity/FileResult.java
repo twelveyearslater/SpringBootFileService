@@ -6,7 +6,7 @@ public class FileResult {
 
     public boolean success = true;
     public File file;
-    public String uuid;
+    public String fileName;
 
     public boolean getSuccess() {
         return success;
@@ -24,11 +24,11 @@ public class FileResult {
         this.file = file;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

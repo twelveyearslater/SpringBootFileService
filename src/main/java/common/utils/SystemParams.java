@@ -14,6 +14,7 @@ public class SystemParams {
         params.put("OS_LINUX", !os.startsWith("win"));
         params.put("FILE_PATH_FOR_LINUX",  File.separator + "home" + File.separator + "root" + File.separator + "file" + File.separator);
         params.put("FILE_PATH_FOR_WINDOWS",  "f:/file/");
+        params.put("FILE_SERVER_URL", "http://localhost:2334/file/download?name=");
     }
 
 }

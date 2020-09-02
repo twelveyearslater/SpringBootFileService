@@ -19,7 +19,6 @@ public class FileServiceImpl implements FileService {
         boolean linux = Boolean.parseBoolean("" + SystemParams.params.get("OS_LINUX"));
         String path = linux ? "" + SystemParams.params.get("FILE_PATH_FOR_LINUX") : "" + SystemParams.params.get("FILE_PATH_FOR_WINDOWS");
         String uuid = UUID.randomUUID().toString();
-        System.out.println(file.getName());
         boolean nameContainPoint = file.getOriginalFilename().lastIndexOf(".") > -1;
         String fileName = nameContainPoint ? uuid + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")) : uuid;
         try {
@@ -29,12 +28,24 @@ public class FileServiceImpl implements FileService {
             fileResult.setSuccess(false);
             return fileResult;
         }
-        fileResult.setUuid(uuid);
+        fileResult.setFileName(fileName);
         return fileResult;
     }
 
     @Override
-    public FileResult acquireFile(String id) {
-        return null;
+    public FileResult acquireFile(String name) {
+        FileResult fileResult = new FileResult();
+        boolean linux = Boolean.parseBoolean("" + SystemParams.params.get("OS_LINUX"));
+        String path = linux ? "" + SystemParams.params.get("FILE_PATH_FOR_LINUX") : "" + SystemParams.params.get("FILE_PATH_FOR_WINDOWS");
+        fileResult.setFileName(name);
+        fileResult.setFile(new File(path + name));
+        return fileResult;
+    }
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(UUID.randomUUID().toString());
+        }
+
     }
 }

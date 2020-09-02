@@ -3,6 +3,7 @@ package sadism.controller;
 import com.netflix.discovery.converters.Auto;
 import common.entity.RestfulResult;
 import common.utils.CommonUtils;
+import common.utils.SystemParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class ServiceController {
             if (! result.success) {
                 restfulResult.setResult("Error");
             }else{
-                restfulResult.setData(result.getUuid());
+                restfulResult.setData(SystemParams.params.get("FILE_SERVER_URL") + result.getFileName());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,14 +41,9 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "download")
-    public void download(HttpServletRequest request, HttpServletResponse response, String id) {
-        RestfulResult restfulResult = new RestfulResult();
-        try {
-            restfulResult.setData(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        CommonUtils.printDataJson(response, restfulResult);
+    public void download(HttpServletRequest request, HttpServletResponse response, String name) {
+        FileResult result = fileService.acquireFile(name);
+        CommonUtils.outputFile(response, result.getFile());
     }
 
     @RequestMapping(value = "rest")

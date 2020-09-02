@@ -7,5 +7,5 @@ public interface FileService {
 
     FileResult saveFile(MultipartFile file);
 
-    FileResult acquireFile(String id);
+    FileResult acquireFile(String name);
 }
